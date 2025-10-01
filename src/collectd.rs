@@ -42,7 +42,7 @@ pub struct Value {
 }
 impl Value {
     /// Function to parse a collectd packet.
-    pub fn from_bytes(mut buf: Bytesg) -> Result<Self, ()> {
+    pub fn from_bytes(mut buf: Bytes) -> Result<Self, ()> {
 
         Ok(Value::default())
     }
