@@ -24,7 +24,7 @@ pub enum TypeMap {
 }
 
 /// Enum representing the different types of values.
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub enum ValueKind {
     Counter(u64),
     Gauge(f64),
@@ -32,8 +32,22 @@ pub enum ValueKind {
     Absolute(u64),
 }
 
+/// Enum representing either a single value or multiple values
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum Values {
+    Value(ValueKind),
+    Values(Vec<ValueKind>),
+}
+
+impl Default for Values {
+    fn default() -> Self {
+        Values::Values(Vec::new())
+    }
+}
+
 /// Struct representing a value from collectd.
-#[derive(Debug, Default, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Value {
     time: Option<u64>,
     interval: Option<u64>,
@@ -42,12 +56,11 @@ pub struct Value {
     plugin_instance: Option<String>,
     r#type: Option<String>,
     type_instance: Option<String>,
-    values: Vec<Value>,
+    values: Values,
 }
 impl Value {
     /// Function to parse a collectd packet.
     pub fn from_bytes(mut buf: Bytes) -> Result<Self, ()> {
-
         Ok(Value::default())
     }
 }
