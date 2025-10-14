@@ -4,9 +4,11 @@ use bytes::Bytes;
 use serde::{Deserialize, Serialize};
 
 /// Enum representing the different parts of a packet.
+///
+/// Reference https://github.com/logstash-plugins/logstash-codec-collectd
 #[derive(Debug, Clone, Copy)]
 #[repr(u16)]
-pub enum TypeMap {
+enum TypeMap {
     Host = 0x0000,
     Time = 0x0001,
     PluginType = 0x0002,
@@ -32,10 +34,22 @@ pub enum ValueKind {
     Absolute(u64),
 }
 
+/// Enum representing the Value type in the packet.
+///
+/// Reference https://github.com/logstash-plugins/logstash-codec-collectd
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[repr(u16)]
+enum ValueMap {
+    Counter = 0x000,
+    Gauge = 0x001,
+    Derive = 0x002,
+    Absolute = 0x003,
+}
+
 /// Enum representing either a single value or multiple values
 #[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum Values {
+enum Values {
     Value(ValueKind),
     Values(Vec<ValueKind>),
 }
