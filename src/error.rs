@@ -6,4 +6,5 @@ pub enum ErrorKind {
     HeaderError,
     EncryptionError,
     NaNError,
+    MalformedPacket,
 }
