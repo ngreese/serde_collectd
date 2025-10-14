@@ -25,15 +25,6 @@ enum TypeMap {
     Encryption = 0x0210,
 }
 
-/// Enum representing the different types of values.
-#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub enum ValueKind {
-    Counter(u64),
-    Gauge(f64),
-    Derive(i64),
-    Absolute(u64),
-}
-
 /// Enum representing the Value type in the packet.
 ///
 /// Reference https://github.com/logstash-plugins/logstash-codec-collectd
@@ -44,6 +35,15 @@ enum ValueMap {
     Gauge = 0x001,
     Derive = 0x002,
     Absolute = 0x003,
+}
+
+/// Enum representing the different types of values.
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub enum ValueKind {
+    Counter(u64),
+    Gauge(f64),
+    Derive(i64),
+    Absolute(u64),
 }
 
 /// Enum representing either a single value or multiple values
