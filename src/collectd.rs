@@ -6,17 +6,21 @@ use serde::{Deserialize, Serialize};
 /// Enum representing the different parts of a packet.
 #[derive(Debug, Clone, Copy)]
 #[repr(u16)]
-pub enum Parts {
+pub enum TypeMap {
     Host = 0x0000,
     Time = 0x0001,
-    TimeHires = 0x0008,
-    Plugin = 0x0002,
+    PluginType = 0x0002,
     PluginInstance = 0x0003,
-    Type = 0x0004,
+    CollectdType = 0x0004,
     TypeInstance = 0x0005,
     Values = 0x0006,
     Interval = 0x0007,
-    IntervalHires = 0x0009,
+    Timestamp = 0x0008,
+    IntervalInstance = 0x0009,
+    Message = 0x0100,
+    Severity = 0x0101,
+    Signature = 0x0200,
+    Encryption = 0x0210,
 }
 
 /// Enum representing the different types of values.
